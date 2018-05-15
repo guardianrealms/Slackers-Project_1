@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
 
-    CharacterController charControl;
+    public CharacterController charControl;
     public float walkSpeed;
 
      void Awake()

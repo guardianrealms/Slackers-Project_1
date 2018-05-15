@@ -23,17 +23,18 @@ public class player : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
-        float rotAmountX = mouseX = mouseSensitivity;
-        float rotAmountY = mouseY = mouseSensitivity;
+        float rotAmountX = mouseX * mouseSensitivity;
+        float rotAmountY = mouseY * mouseSensitivity;
 
         xAxisClamp -= rotAmountY;
 
         Vector3 targetRotCam = transform.rotation.eulerAngles;
+
         Vector3 targetRotBody = playerBody.rotation.eulerAngles;
 
         targetRotCam.x -= rotAmountY;
         targetRotCam.z = 0;
-        targetRotBody.y += rotAmountX;
+        targetRotCam.y += rotAmountX;
 
         if(xAxisClamp > 90)
         {

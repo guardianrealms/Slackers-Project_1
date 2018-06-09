@@ -16,6 +16,7 @@ public class player : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         RotateCamera();
+        
 	}
 
     void RotateCamera()

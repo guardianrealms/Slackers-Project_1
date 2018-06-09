@@ -5,30 +5,45 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
 
-    public CharacterController charControl;
-    public float walkSpeed;
+    public float speed = 6.0F;
+    public float jumpSpeed = 15.0F;
+    public float gravity = 20.0f;
 
-     void Awake()
+    public CharacterController controller;
+    
+    
+    
+  
+  
+    private Vector3 moveDirection = Vector3.zero;
+  
+
+    
+
+    void Awake()
     {
-        charControl = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
+        
     }
 
     void Update()
     {
-        MovePlayer();   
+       
+       
+        if (controller.isGrounded)
+        {
+            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDirection = transform.TransformDirection((moveDirection).normalized);
+            moveDirection *= speed;
+
+            if (Input.GetButton("Jump"))
+                moveDirection.y = jumpSpeed;
+            else moveDirection.y = 0;
+        }
+        moveDirection.y -= gravity * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
     }
 
-    void MovePlayer()
-    {
-        float horiz = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");
 
-        Vector3 moveDirSide = transform.right * horiz * walkSpeed;
-        Vector3 moveDirForward = transform.forward * vert * walkSpeed;
-
-        charControl.SimpleMove(moveDirSide);
-        charControl.SimpleMove(moveDirForward);
-
-
-    }
+    
 }
